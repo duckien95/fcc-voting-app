@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+	<title> My Poll</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.min.js"></script>
+	<style>
+		body 		{ padding-top:80px; word-wrap:break-word; }
+		.btn-block { margin-top : 10px; }
+		#userOption { width: 100%; }
+		#title{ color : green ; }
+	</style>
+</head>
+<body>
+<div class="container"  style="background: #e0e0eb">
+
+	<div class="page-header text-center">
+		<h1><span class="fa fa-anchor"></span> Voting App</h1>
+		<a href="/mypoll" class="btn btn-primary">My Poll</a>
+		<a href="/newpoll" class="btn btn-success">New Poll</a>
+	</div>
+</div>
+<div class="container"  style="background: #efeff5; margin-top : 20px;">
+	<div class="col-sm-12">
+		<div class="row">
+			<div class="col-sm-4">
+				<h2 id="title"><%= poll.title %></h2>
+				<form action="/vote" method="post">
+					<input type="hidden" name="pollid" value="<%= poll.id %>">
+					<label for="votefor">I'd like to vote for...: </label>
+					<select name="votefor" id="votefor">
+						<option value="-2" disabled="disabled" selected="selected">Choose an option...: </option>
+						<% var opts = poll.options;
+							var labels = [];
+							var datas = [];
+							for(var i = 0; i < opts.length; i++){
+								labels.push(opts[i].option);
+								datas.push(opts[i].quantity);
+						%>
+						<option value="<%= opts[i].id %>"><%= opts[i].option %></option>
+						<% } %>
+					</select>
+					<label for="userOption">If you do not vote for above options. Please add your option !</label>
+					<input type="text" name="userOption" id="userOption">
+					<button type="submit" class="btn btn-danger btn-block">Vote</button>
+				</form>
+			</div>
+			<div class="col-sm-8">
+				<canvas id="myChart" style="width: 100%; height: 500px;"></canvas>
+			</div>
+		</div>
+	</div>
+</div>
+
+</div>
+</body>
+<script>
+var ctx = document.getElementById("myChart");
+var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: <%- JSON.stringify(labels) %>,
+        datasets: [{
+            label: '# of Votes',
+            data: <%- JSON.stringify(datas) %>,
+            // data : [2,3,4,5],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.6)',
+                'rgba(54, 162, 235, 0.6)',
+                'rgba(255, 206, 86, 0.6)',
+                'rgba(75, 192, 192, 0.6)',
+                'rgba(153, 102, 255, 0.6)',
+                'rgba(255, 159, 64, 0.6)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    animation:{
+        animateScale:true
+    },
+    cutoutPercentage : 30,
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>
+	
+</html>

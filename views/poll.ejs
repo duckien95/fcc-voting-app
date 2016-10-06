@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+	<title>Poll</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<style>
+		body 		{ padding-top:80px; word-wrap:break-word; }
+	</style>
+</head>
+<body>
+<div class="container">
+
+	<div class="page-header text-center">
+		<h1><span class="fa fa-anchor"></span> Voting App</h1>
+		<a href="/mypoll" class="btn btn-primary">My Poll</a>
+		<a href="/newpoll" class="btn btn-success">New Poll</a>
+	</div>
+
+	<div class="col-sm-offset-3 col-sm-6">
+		<form action="/newpoll" method="POST" role="form">
+			<legend> Create a new poll</legend>
+		
+			<div class="form-group">
+				<label for="" class="text-center">Name of poll</label>
+				<input type="text" class="form-control" name="title" placeholder="Name of poll">
+			</div>
+			<div class="form-group" id="opt">
+				<label for="" class="text-center">Options</label>
+				<input type="text" class="form-control" name="opt0" placeholder="New option">
+				<input type="text" class="form-control" name="opt1" placeholder="New option">
+			</div>
+
+			<button type="button" id="addOption" click="addOption()" class="btn btn-success">More Options</button>
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+	</div>
+
+</div>
+</body>
+	<script>
+		$(document).ready(function(){
+			$('#addOption').click(function(){
+				var OptNumber = $('#opt').children().length - 1;
+				var input =  document.createElement('input');
+				input.setAttribute('class','form-control');
+				input.setAttribute('name','opt' + OptNumber);
+				input.setAttribute('placeholder','New option');
+				$('#opt').append(input);
+			});
+		})
+	</script>
+	
+</html>

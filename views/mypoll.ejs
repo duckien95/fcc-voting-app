@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+	<title> My Poll</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<style>
+		body 		{ padding-top:80px; word-wrap:break-word; }
+		.btn-danger { float: right; margin-top : -8px; color : white; }
+	</style>
+</head>
+<body>
+<div class="container"  style="background: #e0e0eb">
+
+	<div class="page-header text-center">
+		<h1><span class="fa fa-anchor"></span> Voting App</h1>
+		<a href="/mypoll" class="btn btn-primary">My Poll</a>
+		<a href="/newpoll" class="btn btn-success">New Poll</a>
+	</div>
+</div>
+<div class="container"  style="background: #efeff5; margin-top : 20px;">
+	<div class="col-sm-offset-3 col-sm-6">
+		<h1>My Poll</h1>
+		<ul class="list-group">
+			<% for(var i = 0; i < polls.length; i++ ){ %>
+				<li class="list-group-item list-group-item-info">
+					<a href="/poll/<%= polls[i].id %>"><%= polls[i].title %><a>
+					<a href="/poll/delete/<%= polls[i].id %>" class="btn btn-danger">Delete</a>
+				</li>
+			<% } %>
+		</ul>
+		
+
+	</div>
+</div>
+
+</div>
+</body>
+	
+</html>
